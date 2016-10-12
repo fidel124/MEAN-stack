@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+ <title>my MEAN stack</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> 
+  <style> 
+  body {
+  padding-top: 50px;
+  }
+
+  #innercontainer{  	
+  	margin:10px;
+  	min-width:80px;
+  	margin-left:auto; 
+  	margin-right:auto;
+  }
+
+  input{   	
+   	border-style:solid;	
+	border-color: #ccc;
+	border-radius: 5px;
+	padding:5px;
+	margin-bottom: 2px; 
+   }
+
+  .fieldset {  	
+  	margin-top:48px;
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+
+   input[type=text], input[type=email] {
+   	margin-top:8px;
+   }
+
+ 
+   .validat{
+   			margin-top:0px;
+   			color:red;
+   }
+  </style>
+
+</head>
+<body  ng-app="myMeanstack">
+<nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Fidel's Mean stack</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+         
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+
+  <div class="container" ng-controller="DeveloperController">
+  <div class="row">
+    <div class="col-sm-4" >
+      <fieldset  class="fieldset">
+    	<form name="myForm" ng-submit="submit()" novalidate>
+	        <div>
+	   			<input type="text" name="Fname"  class="form-control" pattern="[a-zA-ZåÅäÄÖö-]+"  placeholder="Enter first name" ng-model="website.Fname" Required >
+	   			<span class="validat" ng-show="myForm.Fname.$touched && myForm.Fname.error.text">A valid name is required </span>
+	   			<span class="validat" ng-show="myForm.Fname.$error.pattern">only text needed</span>  			
+	   		</div>	   		
+	   		<div>
+	   			 <input type="text" name="Lname" class="form-control" pattern="[a-zA-ZåÅäÄÖö-]+" placeholder="Enter last name" ng-model="website.Lname" Required >
+	   			 <span class="validat" ng-show="myForm.Lname.$touched && myForm.Lname.error.Lname">A valid last name is required.</span>
+	   			 <span class="validat" ng-show="myForm.Lname.$error.pattern">only text needed</span>
+	   		</div>	   			  
+	   		<div>	 
+	   			 <input type="email" name="Email" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" placeholder="Enter email" ng-model="website.Email" Required>
+	   			 <span class="validat" ng-show="myForm.Email.$touched && myForm.Email.$error.Email">A valid email is required.</span>
+	   			 <span class="validat" ng-show="myForm.Email.$error.pattern">valid email needed</span><br><br>
+	   		</div>	   		
+	   		<div >
+	   			<button type="submit" ng-click="add(website)" class="btn btn-success" ng-disabled="myForm.Fname.$invalid && myForm.Fname.$invalid && myForm.Fname.$error.required || myForm.Lname.$dirty && myForm.Lname.$invalid && myForm.Lname.$error.required ||  myForm.email.$dirty && myForm.email.$invalid && myForm.email.$error.required && myForm.Fname.$pristine || myForm.Lname.$pristine || myForm.Email.$pristine">Add</button>
+
+	   			<button ng-click="save(website)"  class="btn btn-info">Save</button>	   				   			
+	   		</div>	   		
+	   	</form>           
+	   </fieldset>	 
+	    
+    </div><!-- end of col 4--> 
+
+    <div class="col-sm-8" >
+	<div id="innercontainer">
+		<table class="table table-striped">
+		<thead>
+			<tr >
+	   		  <th><h3> First name </h3></th>     <th><h3> Last name </h3></th>   <th><h3>Email</h3></th> <th><h3>Date</h3></th>
+	   		</tr>
+		</thead>
+	    
+		<tbody>
+			<tr ng-repeat ="website in websites">
+				<td><strong>{{website.Fname}}</strong></td> <td><strong> {{website.Lname}}</strong></td> <td>{{website.Email}}</td> <td>{{website.created|date}}</td>
+				<td>
+				   <button ng-click="remove(website._id)" class="btn btn-danger">Del</button>
+				</td>
+				<td>
+				   <button ng-click="edit(website._id)" name="edit" class="btn btn-sucess">Edit</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+  
+
+	</div>
+  </div>
+  </div>
+ <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script> 
+ <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>  
+ <script src="app.js"></script>
+</body>
+</html>
+
+
